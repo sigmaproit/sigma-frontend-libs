@@ -1,0 +1,33 @@
+<h3>Simple Example</h3>
+<ng-container *ngIf="simpleLoadingStatesContext$ | async as loadingStatesContext">
+  <button (click)="loadData$.next(null)" [disabled]="loadingStatesContext.loadingState === 'loading'">Load data</button>
+
+  <div *ngIf="loadingStatesContext.loadingState === 'loading'">
+    loading...
+  </div>
+
+  <div *ngIf="loadingCounter$ | async as counter">
+    You have reloaded this <strong>{{counter}}</strong> times
+  </div>
+</ng-container>
+
+
+<h3>More Complex Example</h3>
+<ng-container *ngIf="loadingWithErrorStatesContext$ | async as loadingStatesContext">
+
+  <button (click)="loadData2$.next(null)" [disabled]="loadingStatesContext.loadingState === 'loading'">Load data</button>
+  <input type="checkbox" [(ngModel)]="error"> With Error
+
+  <div *ngIf="loadingStatesContext.loadingState === 'loading'">
+    loading...
+  </div>
+
+  <div *ngIf="loadingStatesContext.loadingState === 'error'">
+    {{loadingStatesContext.error}}
+  </div>
+
+  <div *ngIf="message$ | async as message">
+    <div *ngIf="loadingStatesContext.loadingState === 'done'">{{message}}</div>
+  </div>
+
+</ng-container>

@@ -19,6 +19,10 @@
       "number-mask": [
         "dist/number-mask/number-mask",
         "dist/number-mask"
+      ],
+      "loading-states": [
+        "dist/loading-states/loading-states",
+        "dist/loading-states"
       ]
     }
   }

@@ -20,9 +20,9 @@
         "dist/number-mask/number-mask",
         "dist/number-mask"
       ],
-      "loading-states": [
-        "dist/loading-states/loading-states",
-        "dist/loading-states"
+      "@sigmaproit/loading-states": [
+        "dist/sigmaproit/loading-states/sigmaproit-loading-states",
+        "dist/sigmaproit/loading-states"
       ]
     }
   }

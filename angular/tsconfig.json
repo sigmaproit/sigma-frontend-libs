@@ -14,16 +14,16 @@
       "path": "./projects/number-mask/tsconfig.spec.json"
     },
     {
-      "path": "./projects/loading-states/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/loading-states/tsconfig.spec.json"
-    },
-    {
       "path": "./projects/examples-loading-states/tsconfig.app.json"
     },
     {
       "path": "./projects/examples-loading-states/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/sigmaproit/loading-states/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/sigmaproit/loading-states/tsconfig.spec.json"
     }
 ]
 }

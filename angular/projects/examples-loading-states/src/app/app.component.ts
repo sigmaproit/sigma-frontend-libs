@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { detectLoadingErrorState, detectLoadingState, LoadingStatesBSubject, startLoading } from 'loading-states';
 import { BehaviorSubject, EMPTY, of, throwError } from 'rxjs';
-import { delay, map, reduce, switchMap, tap, scan, catchError } from 'rxjs/operators';
+import { delay, map, switchMap, tap, scan, catchError } from 'rxjs/operators';
+import {
+  detectLoadingErrorState,
+  detectLoadingState,
+  LoadingStatesBSubject,
+  startLoading,
+} from '@sigmaproit/loading-states';
 
 @Component({
   selector: 'app-root',

@@ -1,8 +1,8 @@
 <h3>Simple Example</h3>
 <ng-container *ngIf="simpleLoadingStatesContext$ | async as loadingStatesContext">
-  <button (click)="loadData$.next(null)" [disabled]="loadingStatesContext.loadingState === 'loading'">Load data</button>
+  <button (click)="loadData$.next(null)" [disabled]="loadingStatesContext | isLoadingState">Load data</button>
 
-  <div *ngIf="loadingStatesContext.loadingState === 'loading'">
+  <div *ngIf="loadingStatesContext | isLoadingState">
     loading...
   </div>
 

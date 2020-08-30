@@ -2,8 +2,8 @@
   "name": "@sigmaproit/loading-states",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^10.0.4",
-    "@angular/core": "^10.0.4"
+    "@angular/common": "^6.1.10",
+    "@angular/core": "^6.1.10"
   },
   "dependencies": {
     "tslib": "^2.0.0"

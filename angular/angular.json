@@ -68,6 +68,7 @@
               "projects/examples-loading-states/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/examples-loading-states/src/styles.scss"
             ],
             "scripts": []
@@ -132,6 +133,7 @@
               "projects/examples-loading-states/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/examples-loading-states/src/styles.scss"
             ],
             "scripts": []
@@ -243,6 +245,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "number-mask"
 }

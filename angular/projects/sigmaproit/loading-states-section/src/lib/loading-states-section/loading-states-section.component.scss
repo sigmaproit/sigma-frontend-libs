@@ -1,0 +1,22 @@
+@mixin centered-row {
+  display: flex;
+  justify-content: center;
+}
+
+.sigma-loading-states-section {
+
+  &__loading {
+    @include centered-row;
+  }
+
+  &__error {
+    &-message {
+      @include centered-row;
+    }
+
+    &-actions {
+      @include centered-row;
+      margin-top: 1rem;
+    }
+  }
+}

@@ -1,8 +1,8 @@
-import { ThemePalette } from '@angular/material/core/common-behaviors/color';
+export type Theme = 'primary' | 'warn' | 'accent';
 
 export interface LoadingStatesSectionConfig {
   sizes: {[sizeId: string]: number};
   defaultErrorMsg: string;
   actionBtnText: string;
-  theme?: ThemePalette;
+  theme?: Theme;
 }

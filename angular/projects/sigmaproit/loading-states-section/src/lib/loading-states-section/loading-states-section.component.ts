@@ -1,6 +1,5 @@
 import { Component, Inject, Input, Output, EventEmitter } from '@angular/core';
-import { LoadingStatesSectionConfig } from '../loading-states-section.models';
-import { ThemePalette } from '@angular/material/core/common-behaviors/color';
+import { LoadingStatesSectionConfig, Theme } from '../loading-states-section.models';
 
 @Component({
   selector: 'sigma-loading-states-section',
@@ -46,7 +45,7 @@ export class LoadingStatesSectionComponent {
 
   themeVal = this.config.theme;
   @Input()
-  set theme(theme: ThemePalette) {
+  set theme(theme: Theme) {
     this.themeVal = theme || this.config.theme;
   }
 

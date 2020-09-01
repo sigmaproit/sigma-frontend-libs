@@ -24,6 +24,12 @@
     },
     {
       "path": "./projects/sigmaproit/loading-states/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/sigmaproit/loading-states-section/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/sigmaproit/loading-states-section/tsconfig.spec.json"
     }
 ]
 }

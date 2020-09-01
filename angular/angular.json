@@ -203,6 +203,46 @@
           }
         }
       }
+    },
+    "@sigmaproit/loading-states-section": {
+      "projectType": "library",
+      "root": "projects/sigmaproit/loading-states-section",
+      "sourceRoot": "projects/sigmaproit/loading-states-section/src",
+      "prefix": "sigma",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/sigmaproit/loading-states-section/tsconfig.lib.json",
+            "project": "projects/sigmaproit/loading-states-section/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sigmaproit/loading-states-section/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sigmaproit/loading-states-section/src/test.ts",
+            "tsConfig": "projects/sigmaproit/loading-states-section/tsconfig.spec.json",
+            "karmaConfig": "projects/sigmaproit/loading-states-section/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sigmaproit/loading-states-section/tsconfig.lib.json",
+              "projects/sigmaproit/loading-states-section/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "number-mask"
 }

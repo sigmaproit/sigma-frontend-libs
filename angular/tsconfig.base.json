@@ -23,6 +23,10 @@
       "@sigmaproit/loading-states": [
         "dist/sigmaproit/loading-states/sigmaproit-loading-states",
         "dist/sigmaproit/loading-states"
+      ],
+      "@sigmaproit/loading-states-section": [
+        "dist/sigmaproit/loading-states-section/sigmaproit-loading-states-section",
+        "dist/sigmaproit/loading-states-section"
       ]
     }
   }

@@ -2,16 +2,14 @@
 <ng-container *ngIf="simpleLoadingStatesContext$ | async as loadingStatesContext">
   <button (click)="loadData$.next(null)" [disabled]="loadingStatesContext | isLoadingState">Load data</button>
 
-  <div *ngIf="loadingStatesContext | isLoadingState">
-    loading...
-  </div>
 
-  <div *ngIf="loadingCounter$ | async as counter">
-    You have reloaded this <strong>{{counter}}</strong> times
-  </div>
+  <sigma-loading-states-section size="large" [state]="loadingStatesContext.loadingState">
 
+    <div *ngIf="loadingCounter$ | async as counter">
+      You have reloaded this <strong>{{counter}}</strong> times
+    </div>
 
-  <sigma-loading-states-section size="large" [state]="loadingStatesContext.loadingState"></sigma-loading-states-section>
+  </sigma-loading-states-section>
 
 </ng-container>
 
@@ -21,22 +19,27 @@
 <h3>More Complex Example</h3>
 <ng-container *ngIf="loadingWithErrorStatesContext$ | async as loadingStatesContext">
 
-  <button (click)="loadData2$.next(null)" [disabled]="loadingStatesContext.loadingState === 'loading'">Load data</button>
+  <button (click)="loadData2$.next(null)" [disabled]="loadingStatesContext.loadingState === 'loading'">
+    Load data
+  </button>
   <input type="checkbox" [(ngModel)]="error"> With Error
+  <input type="checkbox" [(ngModel)]="isEmpty"> is Empty
 
-  <div *ngIf="loadingStatesContext.loadingState === 'loading'">
-    loading...
-  </div>
-
-  <div *ngIf="loadingStatesContext.loadingState === 'error'">
+  <mat-card *ngIf="loadingStatesContext.loadingState === 'error'" style="margin-bottom: 1rem;">
     {{loadingStatesContext.error}}
-  </div>
+  </mat-card>
 
-  <div *ngIf="message$ | async as message">
-    <div *ngIf="loadingStatesContext.loadingState === 'done'">{{message}}</div>
-  </div>
+  <mat-card>
+    <sigma-loading-states-section size="large" [state]="loadingStatesContext.loadingState"
+                                  (actionClicked)="loadData2$.next(null)">
+      <div *ngIf="message$ | async as message">
+        {{message}}
+      </div>
 
-  {{loadingStatesContext.loadingState}}
-  <sigma-loading-states-section size="large" [state]="loadingStatesContext.loadingState" (actionClicked)="loadData2$.next(null)">Some content here</sigma-loading-states-section>
+      <div empty>There is no Data to show here</div>
+    </sigma-loading-states-section>
+
+  </mat-card>
+
 
 </ng-container>

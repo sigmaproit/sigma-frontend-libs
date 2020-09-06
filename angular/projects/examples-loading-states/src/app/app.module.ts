@@ -7,6 +7,7 @@ import { LoadingStatesModule } from '@sigmaproit/loading-states';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingStatesSectionModule } from '@sigmaproit/loading-states-section';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LoadingStatesSectionModule } from '@sigmaproit/loading-states-section';
       defaultErrorMsg: 'Ooops! Something went wrong! Please try again by using the Reload button below',
     }),
     MatProgressSpinnerModule,
+    MatCardModule,
     BrowserAnimationsModule,
   ],
   providers: [],

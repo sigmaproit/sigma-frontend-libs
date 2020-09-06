@@ -17,6 +17,9 @@ import { LoadingStatesSectionConfig, Theme } from '../loading-states-section.mod
       <div *ngIf="state === 'done'" class="sigma-loading-states-section__done">
         <ng-content></ng-content>
       </div>
+      <div *ngIf="state === 'empty'" class="sigma-loading-states-section__empty">
+        <ng-content select="[empty]"></ng-content>
+      </div>
     </div>
   `,
   styleUrls: ['./loading-states-section.component.scss'],

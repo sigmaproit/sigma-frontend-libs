@@ -33,6 +33,7 @@ export class AppComponent {
   loadData2$ = new BehaviorSubject(null);
   loadingWithErrorStatesContext$ = new LoadingStatesBSubject();
   error = false;
+  isEmpty = false;
   message$ = this.loadData2$.pipe(
     delay(0),
     startLoading(this.loadingWithErrorStatesContext$),
@@ -48,6 +49,6 @@ export class AppComponent {
       },
     ),
     map(count => `This is the #${count} time to load data`),
-    detectLoadingState(this.loadingWithErrorStatesContext$),
+    detectLoadingState(this.loadingWithErrorStatesContext$, null, () => this.isEmpty),
   );
 }

@@ -1,5 +1,7 @@
-import { BehaviorSubject, Observable, pipe, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, pipe, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
+type pipeFn<T> = (o: Observable<T>) => Observable<T>;
 
 export enum loadingStates {
   initial = 'initial',
@@ -16,6 +18,14 @@ export interface LoadingStateContext<E = any> {
   loadingState: LoadingState;
 }
 
+interface UpdateLoadingConfig {
+  errorMapper?: (err: any) => any;
+  emptyChecker?: (result: any) => boolean;
+  swallowError?: boolean;
+}
+
+export type LoadingStatesSubject = Subject<LoadingStateContext>;
+
 export class LoadingStatesBSubject extends BehaviorSubject<LoadingStateContext> {
   constructor() {
     super({
@@ -24,10 +34,6 @@ export class LoadingStatesBSubject extends BehaviorSubject<LoadingStateContext> 
     });
   }
 }
-
-export type LoadingStatesSubject = Subject<LoadingStateContext>;
-
-type pipeFn<T> = (o: Observable<T>) => Observable<T>;
 
 export function startLoading<T>(loadingStateSubject: LoadingStatesSubject): pipeFn<T> {
   return pipe(
@@ -38,46 +44,30 @@ export function startLoading<T>(loadingStateSubject: LoadingStatesSubject): pipe
   );
 }
 
-export type ErrorMapper = (err: any) => any;
-function onError(loadingStateSubject: LoadingStatesSubject, errorMapper?: ErrorMapper): (err: any) => void {
-  return (err => {
-    const mappedErr = errorMapper ? errorMapper(err) : err;
-    loadingStateSubject.next({
-      loadingState: loadingStates.error,
-      error: mappedErr,
-    });
+export function startLoadingSync(loadingStateSubject: LoadingStatesBSubject): void {
+  loadingStateSubject.next({
+    error: null,
+    loadingState: loadingStates.loading,
   });
 }
 
-export type EmptyChecker = (result: any) => boolean;
-function onSuccess(loadingStateSubject: LoadingStatesSubject, emptyChecker?: EmptyChecker): (result: any) => void {
-  return (result => {
-    const isEmpty = emptyChecker ? emptyChecker(result) : false;
-    loadingStateSubject.next({
-      error: null,
-      loadingState: isEmpty ? loadingStates.empty : loadingStates.done,
-    });
-  });
-}
-
-export function detectLoadingErrorState<T>(loadingStateSubject: LoadingStatesSubject, errorMapper?: ErrorMapper): pipeFn<T> {
+export function updateLoading<T>(loadingStateSubject: LoadingStatesBSubject, config?: UpdateLoadingConfig): pipeFn<T> {
+  const {emptyChecker, errorMapper, swallowError} = config || {};
   return pipe(
-    catchError(err => {
-      onError(loadingStateSubject, errorMapper)(err);
-      return throwError(err);
+    tap((result) => {
+      const isEmpty = emptyChecker ? emptyChecker(result) : false;
+      loadingStateSubject.next({
+        error: null,
+        loadingState: isEmpty ? loadingStates.empty : loadingStates.done,
+      });
     }),
-  );
-}
-
-export function detectLoadingState<T>(
-  loadingStateSubject: LoadingStatesSubject,
-  errorMapper?: ErrorMapper,
-  emptyChecker?: EmptyChecker):
-  pipeFn<T> {
-  return pipe(
-    tap(
-      onSuccess(loadingStateSubject, emptyChecker),
-      onError(loadingStateSubject, errorMapper),
-    ),
+    catchError(err => {
+      const mappedError = errorMapper ? errorMapper(err) : err;
+      loadingStateSubject.next({
+        error: mappedError,
+        loadingState: loadingStates.error,
+      });
+      return swallowError ? EMPTY : throwError(err);
+    })
   );
 }

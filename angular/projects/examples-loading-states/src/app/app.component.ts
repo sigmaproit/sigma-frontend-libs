@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, EMPTY, of, throwError } from 'rxjs';
 import { delay, map, switchMap, tap, scan, catchError } from 'rxjs/operators';
 import {
   detectLoadingErrorState,
   detectLoadingState,
   LoadingStatesBSubject,
-  startLoading,
+  startLoading, startLoadingSync, updateLoading,
 } from '@sigmaproit/loading-states';
 
 @Component({
@@ -13,7 +13,7 @@ import {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'examples-loading-states';
 
   loadData$ = new BehaviorSubject(null);
@@ -43,12 +43,20 @@ export class AppComponent {
       (count) => {
         const mappedObs = this.error ? throwError('Something wrong!') : of(count);
         return mappedObs.pipe(
-          detectLoadingErrorState(this.loadingWithErrorStatesContext$, (err) => `Ooooops! ${err}`),
-          catchError(err => EMPTY),
+          updateLoading(this.loadingWithErrorStatesContext$, {
+            swallowError: true,
+            errorMapper: (err) => `Ooooops! ${err}`,
+          }),
         );
       },
     ),
     map(count => `This is the #${count} time to load data`),
-    detectLoadingState(this.loadingWithErrorStatesContext$, null, () => this.isEmpty),
+    updateLoading(this.loadingWithErrorStatesContext$, {
+      emptyChecker: () => this.isEmpty,
+    }),
   );
+
+  ngOnInit(): void {
+    startLoadingSync(this.simpleLoadingStatesContext$);
+  }
 }

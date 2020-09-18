@@ -23,10 +23,7 @@ export class LoadingStatesSectionModule {
       providers: [
         {
           provide: 'config',
-          useValue: {
-            ...config,
-            theme: 'primary',
-          } as LoadingStatesSectionConfig,
+          useValue: config ? config : {}
         },
       ],
     };

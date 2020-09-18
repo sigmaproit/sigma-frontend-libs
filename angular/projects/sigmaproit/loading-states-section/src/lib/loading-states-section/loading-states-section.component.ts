@@ -1,6 +1,8 @@
 import { Component, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { LoadingStatesSectionConfig, Theme } from '../loading-states-section.models';
 
+const defaultSpinnerRadius = 15;
+
 @Component({
   selector: 'sigma-loading-states-section',
   template: `
@@ -28,10 +30,11 @@ export class LoadingStatesSectionComponent {
 
   @Input() state: 'initial' | 'loading' | 'error' | 'empty' | 'done';
 
-  spinnerRadius = 15;
+  spinnerRadius = defaultSpinnerRadius;
   @Input()
   set size(sizeId: string) {
-    this.spinnerRadius = this.config.sizes && this.config.sizes[sizeId] || this.spinnerRadius;
+    this.spinnerRadius =
+      (this.config.sizes && this.config.sizes[sizeId]) || defaultSpinnerRadius;
   }
 
   errorMsg = this.config.defaultErrorMsg;
@@ -55,6 +58,10 @@ export class LoadingStatesSectionComponent {
   @Output() actionClicked = new EventEmitter();
 
   constructor(@Inject('config') private config: LoadingStatesSectionConfig) {
+    this.config = {
+      theme: 'primary',
+      ...this.config,
+    };
   }
 
 }

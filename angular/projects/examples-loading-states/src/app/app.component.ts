@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, EMPTY, of, throwError } from 'rxjs';
-import { delay, map, switchMap, tap, scan, catchError } from 'rxjs/operators';
-import {
-  detectLoadingErrorState,
-  detectLoadingState,
-  LoadingStatesBSubject,
-  startLoading, startLoadingSync, updateLoading,
-} from '@sigmaproit/loading-states';
+import { BehaviorSubject, of, throwError } from 'rxjs';
+import { delay, map, scan, switchMap } from 'rxjs/operators';
+import { LoadingStatesBSubject, startLoading, updateLoading } from '@sigmaproit/loading-states';
 
 @Component({
   selector: 'app-root',
@@ -15,20 +10,6 @@ import {
 })
 export class AppComponent implements OnInit {
   title = 'examples-loading-states';
-
-  loadData$ = new BehaviorSubject(null);
-  simpleLoadingStatesContext$ = new LoadingStatesBSubject();
-
-  debugLoadingContext$ = this.simpleLoadingStatesContext$.pipe(tap(console.log)).subscribe();
-
-  loadingCounter$ = this.loadData$.pipe(
-    delay(0),
-    startLoading(this.simpleLoadingStatesContext$),
-    delay(3000),
-    scan((acc, v) => acc + 1, 0),
-    detectLoadingState(this.simpleLoadingStatesContext$),
-  );
-
 
   loadData2$ = new BehaviorSubject(null);
   loadingWithErrorStatesContext$ = new LoadingStatesBSubject();
@@ -45,10 +26,16 @@ export class AppComponent implements OnInit {
         return mappedObs.pipe(
           updateLoading(this.loadingWithErrorStatesContext$, {
             swallowError: true,
+            updateOnErrorOnly: true,
             errorMapper: (err) => `Ooooops! ${err}`,
           }),
         );
       },
+    ),
+    switchMap(
+      (count) => of(count * 100).pipe(
+        delay(500),
+      ),
     ),
     map(count => `This is the #${count} time to load data`),
     updateLoading(this.loadingWithErrorStatesContext$, {
@@ -57,6 +44,5 @@ export class AppComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    startLoadingSync(this.simpleLoadingStatesContext$);
   }
 }

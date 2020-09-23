@@ -22,6 +22,7 @@ interface UpdateLoadingConfig {
   errorMapper?: (err: any) => any;
   emptyChecker?: (result: any) => boolean;
   swallowError?: boolean;
+  updateOnErrorOnly?: boolean;
 }
 
 export type LoadingStatesSubject = Subject<LoadingStateContext>;
@@ -52,9 +53,12 @@ export function startLoadingSync(loadingStateSubject: LoadingStatesBSubject): vo
 }
 
 export function updateLoading<T>(loadingStateSubject: LoadingStatesBSubject, config?: UpdateLoadingConfig): pipeFn<T> {
-  const {emptyChecker, errorMapper, swallowError} = config || {};
+  const {emptyChecker, errorMapper, swallowError, updateOnErrorOnly} = config || {};
   return pipe(
     tap((result) => {
+      if (updateOnErrorOnly) {
+        return;
+      }
       const isEmpty = emptyChecker ? emptyChecker(result) : false;
       loadingStateSubject.next({
         error: null,

@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
       },
       actionBtnText: 'Reload',
       defaultErrorMsg: 'Ooops! Something went wrong! Please try again by using the Reload button below',
+      theme: 'primary'
     }),
     MatProgressSpinnerModule,
     MatCardModule,

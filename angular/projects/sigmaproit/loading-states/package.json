@@ -1,6 +1,6 @@
 {
   "name": "@sigmaproit/loading-states",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "peerDependencies": {
     "@angular/common": "^6.1.10",
     "@angular/core": "^6.1.10"

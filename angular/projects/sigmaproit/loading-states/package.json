@@ -1,6 +1,23 @@
 {
   "name": "@sigmaproit/loading-states",
-  "version": "0.0.5",
+  "version": "0.0.6",
+  "description": "Use RxJS to handle Angular Loading States with ease",
+  "author": {
+    "name": "Abdalla Abdelnasser",
+    "email": "abdalla.abdelnasser@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "angular loading",
+    "angular loading states",
+    "loading states",
+    "angular rxjs loading"
+  ],
+  "homepage": "https://github.com/sigmaproit/sigma-frontend-libs/tree/master/angular/projects/sigmaproit/loading-states",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sigmaproit/sigma-frontend-libs/tree/master/angular/projects/sigmaproit/loading-states"
+  },
   "peerDependencies": {
     "@angular/common": "^6.1.10",
     "@angular/core": "^6.1.10"
